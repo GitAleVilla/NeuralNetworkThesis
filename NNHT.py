@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 import pickle
 
 
-train_wf_all = np.loadtxt('train_wf.csv',delimiter=',')
-train_label_all = np.loadtxt('train_label.csv',delimiter=',')
+train_wf_all = np.loadtxt('../../train_wf.csv',delimiter=',')
+train_label_all = np.loadtxt('../../train_label.csv',delimiter=',')
 print(train_wf_all.shape)
 print(train_label_all.shape)
 

@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 #######---Lettura dati---############
 #####################################
 
-train_wf = np.loadtxt('train_wf.csv',delimiter=',')
-train_label = np.loadtxt('train_label.csv',delimiter=',')
+train_wf = np.loadtxt('../../train_wf.csv',delimiter=',')
+train_label = np.loadtxt('../../train_label.csv',delimiter=',')
 
 train_1 = train_wf[np.where(train_label == 0)]
 train_2 = train_wf[np.where(train_label == 1)]
