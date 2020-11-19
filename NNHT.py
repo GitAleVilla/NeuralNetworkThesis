@@ -40,10 +40,8 @@ def model_builder(hp):
 
 	model.add(Dense(units=hp.Int('input_units_0',16,64,8), input_shape=(5000,)))
 	model.add(Activation('relu'))
-	#model.add(Dense(units=hp.Int(f'input_units_1',8,64,8)))
-	#model.add(Activation('relu'))
 
-	for i in range(hp.Int('n_layers',1,4)):
+	for i in range(hp.Int('n_layers',1,8)):
 		model.add(Dense(units=hp.Int(f'units_{i}',8,64,8)))
 		model.add(Activation('relu'))
 	
@@ -61,16 +59,16 @@ def model_builder(hp):
 ##########################
 
 tuner = RandomSearch(model_builder,
-					 #objective = 'val_loss',
-					 objective = 'val_accuracy',
-					 max_trials = 200,
+					 objective = 'val_loss',
+					 #objective = 'val_accuracy',
+					 max_trials = 100,
 					 executions_per_trial = 3,
-					 directory = 'HT_History')
+					 directory = '../../HT_History')
 
 tuner.search(x = train_wf,
              y = train_label,
              epochs = 100,
-			 batch_size = 1,
+			 batch_size = 20,
              validation_data = (val_wf, val_label))
 
 print(train_wf.shape)

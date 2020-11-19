@@ -69,10 +69,13 @@ print(tun.get_best_models(num_models=1)[0].summary())
 
 best_model = tun.get_best_models(num_models=1)[0]
 
-hist = best_model.fit(x=train_wf, y=train_label, validation_split=0.05, epochs=400, shuffle=True, verbose=0)
+hist = best_model.fit(x=train_wf, y=train_label, validation_split=0.1, epochs=400, shuffle=True, verbose=0, batch_size = 20)
 
 best_model.summary()
+valut = best_model.evaluate(val_wf,val_label,batch_size = 1)
+print('loss,acc: ' + str(valut))
 
+best_model.save('../../SavedModel/my_model')
 
 acc = hist.history['accuracy']
 val_acc = hist.history['val_accuracy']
