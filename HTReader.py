@@ -15,9 +15,9 @@ import matplotlib.pyplot as plt
 
 import pickle
 
-'''
-train_wf_all = np.loadtxt('train_wf.csv',delimiter=',')
-train_label_all = np.loadtxt('train_label.csv',delimiter=',')
+
+train_wf_all = np.loadtxt('../../train_wf.csv',delimiter=',')
+train_label_all = np.loadtxt('../../train_label.csv',delimiter=',')
 print(train_wf_all.shape)
 print(train_label_all.shape)
 
@@ -34,7 +34,7 @@ print(train_wf.shape)
 print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
-'''
+
 ##################################
 def model_builder(hp):
 	model = keras.Sequential()

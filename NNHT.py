@@ -63,13 +63,14 @@ def model_builder(hp):
 tuner = RandomSearch(model_builder,
 					 #objective = 'val_loss',
 					 objective = 'val_accuracy',
-					 max_trials = 20,
+					 max_trials = 200,
 					 executions_per_trial = 3,
 					 directory = 'HT_History')
 
 tuner.search(x = train_wf,
              y = train_label,
              epochs = 100,
+			 batch_size = 1,
              validation_data = (val_wf, val_label))
 
 print(train_wf.shape)

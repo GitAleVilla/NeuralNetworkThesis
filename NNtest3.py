@@ -14,9 +14,11 @@ import matplotlib.pyplot as plt
 
 train_wf_all = np.loadtxt('../../train_wf.csv',delimiter=',')
 train_label_all = np.loadtxt('../../train_label.csv',delimiter=',')
+#train_wf_all = np.transpose(train_wf_all)
+#train_label_all = np.transpose(train_label_all)
 print(train_wf_all.shape)
 print(train_label_all.shape)
-
+'''
 shuffler = np.random.permutation(len(train_label_all))
 train_wf_all = train_wf_all[shuffler]
 train_label_all = train_label_all[shuffler]
@@ -33,43 +35,33 @@ print(train_wf.shape)
 print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
-
+'''
 #####################################
 #######---Rete neurale---############
 #####################################
 
-mod = Sequential([Dense(units=16, input_shape=(5000,), activation='relu'),
-				  Dense(units=2, activation='softmax')
-				  ])
+model = Sequential([#keras.Input((5000,)), 
+					Dense(16, activation='relu'),
+					Dense(2, activation='softmax')
+					])
 
 
-mod.compile(optimizer = Adam(),
+model.compile(optimizer = Adam(),
 			loss='sparse_categorical_crossentropy',
+			#loss='mse',
 			metrics=['accuracy'])
 
-hist = mod.fit(x=train_wf_all, y=train_label_all,
+hist = model.fit(train_wf_all, train_label_all,
                #validation_data=(val_wf, val_label),
-			   validation_split=0.05,
+			   #validation_split=0.05,
+			   batch_size=1,
 			   epochs=20,
 			   shuffle=True,
-			   verbose=1)
+			   verbose=2)
 
-mod.summary()
+model.summary()
 
 print(train_wf.shape)
 print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
-
-'''
-acc = hist.history['accuracy']
-val_acc = hist.history['val_accuracy']
-loss = hist.history['loss']
-val_loss = hist.history['val_loss']
-epoch= range(1,401)
-
-plt.plot(epoch, loss, label='loss')
-plt.plot(epoch, val_loss, label='val_loss')
-plt.legend()
-plt.show()
-'''
