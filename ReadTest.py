@@ -29,10 +29,10 @@ train_label = train_label_all[:1800]
 ############################## Prediction
 prediction = model.predict(val_wf)
 pred_label = np.argmax(prediction, axis=1)
-minx = np.min(val_label)
-maxx = np.max(val_label)
-miny = np.min(pred_label)
-maxy = np.max(pred_label)
+minx = np.min(val_label) - 0.5
+maxx = np.max(val_label) + 0.5
+miny = np.min(pred_label) - 0.5
+maxy = np.max(pred_label) + 0.5
 #print(prediction[0])
 #print(val_label[0])
 #print(len(np.argmax(prediction, axis=1)))
@@ -46,9 +46,18 @@ print(y_bins)
 
 fig, ax = plt.subplots(figsize =(8, 6))
 
-plt.hist2d(x = val_label, y = pred_label, bins = [x_bins, y_bins])
-ax.set_xlabel('True label')  
+plt.hist2d(x = val_label, y = pred_label,
+		   bins = [x_bins, y_bins],
+		   cmap = plt.cm.Blues)
+
+#print(xbins)
+
+ax.set_xlabel('True label')
 ax.set_ylabel('Predicted label')
+ax.set_xticks([0,1])
+ax.set_xticklabels(['$e^-$','$\pi^-$'])
+ax.set_yticks([0,1])
+ax.set_yticklabels(['$e^-$','$\pi^-$'])
 
 plt.colorbar()
 plt.tight_layout()
