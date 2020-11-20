@@ -41,10 +41,8 @@ def model_builder(hp):
 
 	model.add(Dense(units=hp.Int('input_units_0',16,64,8), input_shape=(5000,)))
 	model.add(Activation('relu'))
-	#model.add(Dense(units=hp.Int(f'input_units_1',8,64,8)))
-	#model.add(Activation('relu'))
 
-	for i in range(hp.Int('n_layers',1,4)):
+	for i in range(hp.Int('n_layers',1,8)):
 		model.add(Dense(units=hp.Int(f'units_{i}',8,64,8)))
 		model.add(Activation('relu'))
 	
@@ -61,14 +59,14 @@ def model_builder(hp):
 	return model
 #################################
 
-with open('HTHist.pkl','rb') as f:
+with open('HTHist_batch20.pkl','rb') as f:
 	tun = pickle.load(f)
 
 print(tun.results_summary())
 print(tun.get_best_models(num_models=1)[0].summary())
 
 best_model = tun.get_best_models(num_models=1)[0]
-
+'''
 hist = best_model.fit(x=train_wf, y=train_label, validation_split=0.1, epochs=400, shuffle=True, verbose=0, batch_size = 20)
 
 best_model.summary()
@@ -91,4 +89,4 @@ plt.show()
 plt.plot(epoch, acc, label='accuracy')
 plt.plot(epoch, val_acc, label='val_accuracy')
 plt.legend()
-plt.show()
+plt.show()'''

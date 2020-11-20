@@ -61,9 +61,9 @@ def model_builder(hp):
 tuner = RandomSearch(model_builder,
 					 objective = 'val_loss',
 					 #objective = 'val_accuracy',
-					 max_trials = 100,
+					 max_trials = 10,
 					 executions_per_trial = 3,
-					 directory = '../../HT_History')
+					 directory = '../../HT_History_batch20')
 
 tuner.search(x = train_wf,
              y = train_label,
@@ -76,7 +76,7 @@ print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
 
-with open('HTHist.pkl','wb') as f:
+with open('HTHist_batch20.pkl','wb') as f:
 	pickle.dump(tuner,f)
 
 
