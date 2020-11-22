@@ -14,7 +14,7 @@ from kerastuner.engine.hyperparameters import HyperParameters
 import matplotlib.pyplot as plt
 import pickle
 
-
+####### - Import Data - ##########
 train_wf_all = np.loadtxt('../../train_wf.csv',delimiter=',')
 train_label_all = np.loadtxt('../../train_label.csv',delimiter=',')
 print(train_wf_all.shape)
@@ -24,17 +24,21 @@ shuffler = np.random.permutation(len(train_label_all))
 train_wf_all = train_wf_all[shuffler]
 train_label_all = train_label_all[shuffler]
 
-val_wf = train_wf_all[1800:]
-val_label = train_label_all[1800:]
-train_wf = train_wf_all[:1800]
-train_label = train_label_all[:1800]
+data_size = len(train_label_all)
+split_train_ratio = 0.9
+split_number = int(data_size * split_train_ratio)
+
+val_wf = train_wf_all[split_number:]
+val_label = train_label_all[split_number:]
+train_wf = train_wf_all[:split_number]
+train_label = train_label_all[:split_number]
 
 print(train_wf.shape)
 print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
 
-#################################
+######### - Model Constructor - ###########
 def model_builder(hp):
 	model = keras.Sequential()
 
@@ -44,9 +48,8 @@ def model_builder(hp):
 	for i in range(hp.Int('n_layers',1,8)):
 		model.add(Dense(units=hp.Int(f'units_{i}',8,64,8)))
 		model.add(Activation('relu'))
-	
 
-	model.add(Dense(units=2))
+	model.add(Dense(units=3))
 	model.add(Activation('softmax'))
     
 	lr = hp.Choice('learning_rate', values = [1e-2, 1e-3, 1e-4])
@@ -56,19 +59,19 @@ def model_builder(hp):
 				  metrics = ['accuracy'])
 
 	return model
-##########################
 
+############ - HyperTuner - ##############
 tuner = RandomSearch(model_builder,
 					 objective = 'val_loss',
 					 #objective = 'val_accuracy',
-					 max_trials = 25,
-					 executions_per_trial = 3,
-					 directory = '../../HT_History_batch4')
+					 max_trials = 10000,
+					 executions_per_trial = 5,
+					 directory = '../../HT3_History')
 
 tuner.search(x = train_wf,
              y = train_label,
              epochs = 100,
-			 batch_size = 4,
+			 batch_size = 32,
              validation_data = (val_wf, val_label))
 
 print(train_wf.shape)
@@ -76,7 +79,7 @@ print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
 
-with open('HTHist_batch4.pkl','wb') as f:
+with open('HTHist3.pkl','wb') as f:
 	pickle.dump(tuner,f)
 
 
