@@ -93,10 +93,7 @@ train_wf_1 = train_wf_1.reshape(int(len(train_wf_1)/DemoWaveform.size), DemoWave
 ### --- Creazione dati Elettrone + Pione --- ####
 #################################################
 
-
 one_type_size = len(train_label_0)
-#print(len(train_label))
-#print(one_type_size)
 
 for ev in range(one_type_size):
 	print('Sovrapposizione: ' + str(ev) + " " + str(one_type_size))
@@ -112,15 +109,6 @@ train_wf_2 = train_wf_2.reshape(int(len(train_wf_2)/DemoWaveform.size), DemoWave
 ####### --- Normalizazione e reshape --- ########
 #################################################
 
-'''normFactor_0 = np.max(train_wf_0)
-normFactor_1 = np.max(train_wf_1)
-normFactor_2 = np.max(train_wf_2)
-normFactor = np.max([normFactor_0, normFactor_1, normFactor_2])
-
-train_wf_0 = train_wf_0 / normFactor
-train_wf_1 = train_wf_1 / normFactor
-train_wf_2 = train_wf_2 / normFactor
-'''
 train_wf = train_wf_0
 train_label = train_label_0
 
@@ -133,10 +121,10 @@ train_label = np.append(train_label,train_label_2,axis=0)
 normFactor = np.max(train_wf)
 train_wf = train_wf / normFactor
 
-print('len wf: ' + str(len(train_wf)))
-print('len label: ' + str(len(train_label)))
-print('shape wf: ' + str(train_wf.shape))
-print('shape label: ' + str(train_label.shape))
+#print('len wf: ' + str(len(train_wf)))
+#print('len label: ' + str(len(train_label)))
+#print('shape wf: ' + str(train_wf.shape))
+#print('shape label: ' + str(train_label.shape))
 
 #train_wf = train_wf.reshape(int(len(train_wf)/DemoWaveform.size), DemoWaveform.size)
 print(train_wf.shape)
@@ -150,6 +138,6 @@ shuffler = np.random.permutation(len(train_wf))
 train_wf = train_wf[shuffler]
 train_label = train_label[shuffler]
 '''
-np.savetxt('../../train_wf2.csv',train_wf,delimiter=',')
-np.savetxt('../../train_label2.csv',train_label,delimiter=',')
+np.savetxt('../../train_wf.csv',train_wf,delimiter=',')
+np.savetxt('../../train_label.csv',train_label,delimiter=',')
 
