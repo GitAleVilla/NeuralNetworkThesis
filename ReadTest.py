@@ -9,22 +9,21 @@ model = keras.models.load_model('../../SavedModel/my_model')
 ############################## Import data
 train_wf_all = np.loadtxt('../../train_wf.csv',delimiter=',')
 train_label_all = np.loadtxt('../../train_label.csv',delimiter=',')
-#print(train_wf_all.shape)
-#print(train_label_all.shape)
+print(train_wf_all.shape)
+print(train_label_all.shape)
 
 shuffler = np.random.permutation(len(train_label_all))
 train_wf_all = train_wf_all[shuffler]
 train_label_all = train_label_all[shuffler]
 
-val_wf = train_wf_all[1800:]
-val_label = train_label_all[1800:]
-train_wf = train_wf_all[:1800]
-train_label = train_label_all[:1800]
+data_size = len(train_label_all)
+split_train_ratio = 0.9
+split_number = int(data_size * split_train_ratio)
 
-#print(train_wf.shape)
-#print(train_label.shape)
-#print(val_wf.shape)
-#print(val_label.shape)
+val_wf = train_wf_all[split_number:]
+val_label = train_label_all[split_number:]
+train_wf = train_wf_all[:split_number]
+train_label = train_label_all[:split_number]
 
 ############################## Prediction
 prediction = model.predict(val_wf)
@@ -54,10 +53,10 @@ plt.hist2d(x = val_label, y = pred_label,
 
 ax.set_xlabel('True label')
 ax.set_ylabel('Predicted label')
-ax.set_xticks([0,1])
-ax.set_xticklabels(['$e^-$','$\pi^-$'])
-ax.set_yticks([0,1])
-ax.set_yticklabels(['$e^-$','$\pi^-$'])
+ax.set_xticks([0,1,2])
+ax.set_xticklabels(['$e^-$','$\pi^-$','$e^- + \pi^-$'])
+ax.set_yticks([0,1,2])
+ax.set_yticklabels(['$e^-$','$\pi^-$','$e^- + \pi^-$'])
 
 plt.colorbar()
 plt.tight_layout()
