@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 import pickle
 
 ####### - Import Data - ##########
-train_wf_all = np.loadtxt('../../train_wf.csv',delimiter=',')
-train_label_all = np.loadtxt('../../train_label.csv',delimiter=',')
+train_wf_all = np.loadtxt('../../train_wf_ch.csv',delimiter=',')
+train_label_all = np.loadtxt('../../train_label_ch.csv',delimiter=',')
 print(train_wf_all.shape)
 print(train_label_all.shape)
 
@@ -64,9 +64,10 @@ def model_builder(hp):
 tuner = RandomSearch(model_builder,
 					 objective = 'val_loss',
 					 #objective = 'val_accuracy',
-					 max_trials = 10000,
+					 max_trials = 30,
 					 executions_per_trial = 5,
-					 directory = '../../HT3_History')
+					 directory = '../../HT_History',
+					 project='Cherenkov')
 
 tuner.search(x = train_wf,
              y = train_label,
@@ -79,7 +80,7 @@ print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
 
-with open('HTHist3.pkl','wb') as f:
+with open('HTHist_ch.pkl','wb') as f:
 	pickle.dump(tuner,f)
 
 

@@ -45,9 +45,8 @@ def model_builder(hp):
 	for i in range(hp.Int('n_layers',1,8)):
 		model.add(Dense(units=hp.Int(f'units_{i}',8,64,8)))
 		model.add(Activation('relu'))
-	
 
-	model.add(Dense(units=2))
+	model.add(Dense(units=3))
 	model.add(Activation('softmax'))
     
 	lr = hp.Choice('learning_rate', values = [1e-2, 1e-3, 1e-4])
@@ -60,12 +59,12 @@ def model_builder(hp):
 #################################
 
 with open('HTHist_batch20.pkl','rb') as f:
-	tun = pickle.load(f)
+	tuned = pickle.load(f)
 
-print(tun.results_summary())
-print(tun.get_best_models(num_models=1)[0].summary())
+print(tuned.results_summary())
+print(tuned.get_best_models(num_models=1)[0].summary())
 
-best_model = tun.get_best_models(num_models=1)[0]
+best_model = tuned.get_best_models(num_models=1)[0]
 '''
 hist = best_model.fit(x=train_wf, y=train_label, validation_split=0.1, epochs=400, shuffle=True, verbose=0, batch_size = 20)
 
