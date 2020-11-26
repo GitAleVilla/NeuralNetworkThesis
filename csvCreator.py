@@ -110,7 +110,7 @@ for ev in events:
 	del wavesEv
 	del wavesEv_ch
 	del wavesEv_sc
-	label = 0
+	label = 1
 	train_wf_1_ch = np.append(train_wf_1_ch, sumAnalog_ch)
 	train_label_1_ch = np.append(train_label_1_ch, label)
 	train_wf_1_sc = np.append(train_wf_1_sc, sumAnalog_sc)

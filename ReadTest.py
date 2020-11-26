@@ -4,14 +4,16 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 
 ############################## Import model
-model = keras.models.load_model('../../SavedModel/my_model')
+model = keras.models.load_model('../../SavedModel/model_cher')
 
 ############################## Import data
-train_wf_all = np.loadtxt('../../train_wf.csv',delimiter=',')
-train_label_all = np.loadtxt('../../train_label.csv',delimiter=',')
+train_wf_all = np.loadtxt('../../train_wf_ch.csv',delimiter=',')
+train_label_all = np.loadtxt('../../train_label_ch.csv',delimiter=',')
 print(train_wf_all.shape)
 print(train_label_all.shape)
+print(np.unique(train_label_all))
 
+np.random.seed(1)
 shuffler = np.random.permutation(len(train_label_all))
 train_wf_all = train_wf_all[shuffler]
 train_label_all = train_label_all[shuffler]
@@ -38,8 +40,8 @@ maxy = np.max(pred_label) + 0.5
 #print(len(val_label))
 
 ############################## Plot
-x_bins = np.linspace(minx, maxx, 3) 
-y_bins = np.linspace(miny, maxy, 3)
+x_bins = np.linspace(minx, maxx, 4) 
+y_bins = np.linspace(miny, maxy, 4)
 print(x_bins)
 print(y_bins)
 

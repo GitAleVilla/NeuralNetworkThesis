@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 import pickle
 
 
-train_wf_all = np.loadtxt('../../train_wf.csv',delimiter=',')
-train_label_all = np.loadtxt('../../train_label.csv',delimiter=',')
+train_wf_all = np.loadtxt('../../train_wf_ch.csv',delimiter=',')
+train_label_all = np.loadtxt('../../train_label_ch.csv',delimiter=',')
 print(train_wf_all.shape)
 print(train_label_all.shape)
 
@@ -58,21 +58,21 @@ def model_builder(hp):
 	return model
 #################################
 
-with open('HTHist_batch20.pkl','rb') as f:
+with open('HTHist_ch.pkl','rb') as f:
 	tuned = pickle.load(f)
 
 print(tuned.results_summary())
 print(tuned.get_best_models(num_models=1)[0].summary())
 
 best_model = tuned.get_best_models(num_models=1)[0]
-'''
-hist = best_model.fit(x=train_wf, y=train_label, validation_split=0.1, epochs=400, shuffle=True, verbose=0, batch_size = 20)
+
+hist = best_model.fit(x=train_wf, y=train_label, validation_split=0.1, epochs=400, shuffle=True, verbose=0, batch_size = 32)
 
 best_model.summary()
-valut = best_model.evaluate(val_wf,val_label,batch_size = 1)
+valut = best_model.evaluate(val_wf,val_label,batch_size = 32)
 print('loss,acc: ' + str(valut))
 
-best_model.save('../../SavedModel/my_model')
+best_model.save('../../SavedModel/model_cher', overwrite=True)
 
 acc = hist.history['accuracy']
 val_acc = hist.history['val_accuracy']
@@ -88,4 +88,4 @@ plt.show()
 plt.plot(epoch, acc, label='accuracy')
 plt.plot(epoch, val_acc, label='val_accuracy')
 plt.legend()
-plt.show()'''
+plt.show()
