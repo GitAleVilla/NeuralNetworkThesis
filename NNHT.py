@@ -80,7 +80,7 @@ print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
 
-with open('HTHist_ch_1000.pkl','wb') as f:
+with open('HTHist_ch1000.pkl','wb') as f:
 	pickle.dump(tuner,f)
 
 
