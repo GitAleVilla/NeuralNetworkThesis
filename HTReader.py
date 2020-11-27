@@ -18,8 +18,8 @@ import pickle
 
 
 ####### - Import Data - ##########
-train_wf_all = np.loadtxt('../../train_wf_ch.csv',delimiter=',')
-train_label_all = np.loadtxt('../../train_label_ch.csv',delimiter=',')
+train_wf_all = np.loadtxt('../../train_wf_sc.csv',delimiter=',')
+train_label_all = np.loadtxt('../../train_label_sc.csv',delimiter=',')
 print(train_wf_all.shape)
 print(train_label_all.shape)
 
@@ -65,7 +65,7 @@ def model_builder(hp):
 #################################
 
 ############################## Best model and train
-with open('HTHist_ch1000.pkl','rb') as f:
+with open('HTHist_sc1000.pkl','rb') as f:
 	tuned = pickle.load(f)
 
 print(tuned.results_summary())
@@ -79,7 +79,7 @@ best_model.summary()
 valut = best_model.evaluate(val_wf,val_label,batch_size = 32)
 print('loss,acc: ' + str(valut))
 
-best_model.save('../../SavedModel/model_cher1000', overwrite=True)
+best_model.save('../../SavedModel/model_scin1000', overwrite=True)
 
 acc = hist.history['accuracy']
 val_acc = hist.history['val_accuracy']

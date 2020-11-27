@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 import pickle
 
 ####### - Import Data - ##########
-train_wf_all = np.loadtxt('../../train_wf_ch.csv',delimiter=',')
-train_label_all = np.loadtxt('../../train_label_ch.csv',delimiter=',')
+train_wf_all = np.loadtxt('../../train_wf_sc.csv',delimiter=',')
+train_label_all = np.loadtxt('../../train_label_sc.csv',delimiter=',')
 print(train_wf_all.shape)
 print(train_label_all.shape)
 
@@ -67,7 +67,7 @@ tuner = RandomSearch(model_builder,
 					 max_trials = 1000,
 					 executions_per_trial = 5,
 					 directory = '../../HT_History',
-					 project_name='Cherenkov1000')
+					 project_name='Scintillating1000')
 
 tuner.search(x = train_wf,
              y = train_label,
@@ -80,7 +80,7 @@ print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
 
-with open('HTHist_ch1000.pkl','wb') as f:
+with open('HTHist_sc1000.pkl','wb') as f:
 	pickle.dump(tuner,f)
 
 
