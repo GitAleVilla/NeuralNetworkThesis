@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import pickle
 
 
+####### - Import Data - ##########
 train_wf_all = np.loadtxt('../../train_wf_ch.csv',delimiter=',')
 train_label_all = np.loadtxt('../../train_label_ch.csv',delimiter=',')
 print(train_wf_all.shape)
@@ -25,10 +26,14 @@ shuffler = np.random.permutation(len(train_label_all))
 train_wf_all = train_wf_all[shuffler]
 train_label_all = train_label_all[shuffler]
 
-val_wf = train_wf_all[1800:]
-val_label = train_label_all[1800:]
-train_wf = train_wf_all[:1800]
-train_label = train_label_all[:1800]
+data_size = len(train_label_all)
+split_train_ratio = 0.9
+split_number = int(data_size * split_train_ratio)
+
+val_wf = train_wf_all[split_number:]
+val_label = train_label_all[split_number:]
+train_wf = train_wf_all[:split_number]
+train_label = train_label_all[:split_number]
 
 print(train_wf.shape)
 print(train_label.shape)
@@ -58,7 +63,7 @@ def model_builder(hp):
 	return model
 #################################
 
-with open('HTHist_ch.pkl','rb') as f:
+with open('HTHist_ch1000.pkl','rb') as f:
 	tuned = pickle.load(f)
 
 print(tuned.results_summary())
@@ -72,7 +77,7 @@ best_model.summary()
 valut = best_model.evaluate(val_wf,val_label,batch_size = 32)
 print('loss,acc: ' + str(valut))
 
-best_model.save('../../SavedModel/model_cher', overwrite=True)
+best_model.save('../../SavedModel/model_cher1000', overwrite=True)
 
 acc = hist.history['accuracy']
 val_acc = hist.history['val_accuracy']

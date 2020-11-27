@@ -4,7 +4,7 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 
 ############################## Import model
-model = keras.models.load_model('../../SavedModel/model_cher')
+model = keras.models.load_model('../../SavedModel/model_cher1000')
 
 ############################## Import data
 train_wf_all = np.loadtxt('../../train_wf_ch.csv',delimiter=',')
@@ -13,7 +13,6 @@ print(train_wf_all.shape)
 print(train_label_all.shape)
 print(np.unique(train_label_all))
 
-np.random.seed(1)
 shuffler = np.random.permutation(len(train_label_all))
 train_wf_all = train_wf_all[shuffler]
 train_label_all = train_label_all[shuffler]
