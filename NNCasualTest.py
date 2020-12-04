@@ -108,7 +108,7 @@ print(y_bins)'''
 fig, ax = plt.subplots()
 
 # create heatmap
-conf_matrix = confusion_matrix(val_label, pred_label)
+conf_matrix = confusion_matrix(pred_label, val_label)
 print(conf_matrix)
 normalizer = conf_matrix.sum(axis=0)
 print(normalizer)

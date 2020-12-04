@@ -165,7 +165,7 @@ print('Scin shape: ' + str(train_wf_sc.shape))
 print('Scin label: ' + str(train_label_sc.shape))
 
 normFactor_ch = np.max(train_wf_ch)
-train_wf_ch = train_wf_sc / normFactor_ch
+train_wf_ch = train_wf_ch / normFactor_ch
 normFactor_sc = np.max(train_wf_sc)
 train_wf_sc = train_wf_sc / normFactor_sc
 
@@ -180,6 +180,6 @@ train_label = train_label[shuffler]
 np.savetxt('../../train_wf_ch.csv',train_wf_ch,delimiter=',')
 np.savetxt('../../train_label_ch.csv',train_label_ch,delimiter=',')
 
-np.savetxt('../../train_wf_sc.csv',train_wf_sc,delimiter=',')
-np.savetxt('../../train_label_sc.csv',train_label_sc,delimiter=',')
+#np.savetxt('../../train_wf_sc.csv',train_wf_sc,delimiter=',')
+#np.savetxt('../../train_label_sc.csv',train_label_sc,delimiter=',')
 

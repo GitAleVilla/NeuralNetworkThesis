@@ -47,15 +47,17 @@ def model_builder(hp):
 
 	model.add(Dense(units=hp.Int('input_units_0',16,64,8), input_shape=(5000,)))
 	model.add(Activation('relu'))
+	model.add(Dropout(0.5))
 
-	for i in range(hp.Int('n_layers',1,8)):
+	for i in range(hp.Int('n_layers',1,3)):
 		model.add(Dense(units=hp.Int(f'units_{i}',8,64,8)))
 		model.add(Activation('relu'))
+		model.add(Dropout(0.5))
 
 	model.add(Dense(units=3))
 	model.add(Activation('softmax'))
     
-	lr = hp.Choice('learning_rate', values = [1e-2, 1e-3, 1e-4])
+	lr = hp.Choice('learning_rate', values = [1e-3, 1e-4, 1e-5])
 	
 	model.compile(optimizer = Adam(lr),
 				  loss = 'sparse_categorical_crossentropy',
@@ -65,7 +67,7 @@ def model_builder(hp):
 #################################
 
 ############################## Best model and train
-with open('HTHist_sc1000.pkl','rb') as f:
+with open('HTHist_sc50Drop.pkl','rb') as f:
 	tuned = pickle.load(f)
 
 print(tuned.results_summary())
@@ -79,7 +81,7 @@ best_model.summary()
 valut = best_model.evaluate(val_wf,val_label,batch_size = 32)
 print('loss,acc: ' + str(valut))
 
-best_model.save('../../SavedModel/model_scin1000', overwrite=True)
+best_model.save('../../SavedModel/model_scin150Drop', overwrite=True)
 
 acc = hist.history['accuracy']
 val_acc = hist.history['val_accuracy']

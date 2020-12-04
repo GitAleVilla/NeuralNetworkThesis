@@ -41,8 +41,8 @@ model = keras.Sequential([#keras.Input((5000,1,)),
 						  layers.Dense(3, activation='softmax')
 						  ])
 
-model.compile(#optimizer = Adam(1e-4),
-			  optimizer = 'sgd',
+model.compile(optimizer = Adam(1e-4),
+			  #optimizer = 'sgd',
 			  loss='sparse_categorical_crossentropy',
 			  metrics=['accuracy'])
 
