@@ -67,7 +67,7 @@ def model_builder(hp):
 #################################
 
 ############################## Best model and train
-with open('HTHist_sc50Drop.pkl','rb') as f:
+with open('HTHist_sc100DropAcc.pkl','rb') as f:
 	tuned = pickle.load(f)
 
 print(tuned.results_summary())
@@ -81,7 +81,7 @@ best_model.summary()
 valut = best_model.evaluate(val_wf,val_label,batch_size = 32)
 print('loss,acc: ' + str(valut))
 
-best_model.save('../../SavedModel/model_scin150Drop', overwrite=True)
+best_model.save('../../SavedModel/model_sc100DropAcc', overwrite=True)
 
 acc = hist.history['accuracy']
 val_acc = hist.history['val_accuracy']

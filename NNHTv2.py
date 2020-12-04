@@ -64,12 +64,12 @@ def model_builder(hp):
 
 ############ - HyperTuner - ##############
 tuner = RandomSearch(model_builder,
-					 objective = 'val_loss',
-					 #objective = 'val_accuracy',
-					 max_trials = 20,
+					 #objective = 'val_loss',
+					 objective = 'val_accuracy',
+					 max_trials = 100,
 					 executions_per_trial = 3,
 					 directory = '../../HT_History',
-					 project_name='Scintillating50Drop')
+					 project_name='Scintillating100DropAcc')
 
 tuner.search(x = train_wf,
              y = train_label,
@@ -82,7 +82,7 @@ print(train_label.shape)
 print(val_wf.shape)
 print(val_label.shape)
 
-with open('HTHist_sc50Drop.pkl','wb') as f:
+with open('HTHist_sc100DropAcc.pkl','wb') as f:
 	pickle.dump(tuner,f)
 
 
