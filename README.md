@@ -1,3 +1,3 @@
 # NeuralNetworkTesi
 Repository for thesis
-Python scripts to evaluate different Neural Networks performances
+Python scripts to build, train and evaluate different Neural Networks performances
